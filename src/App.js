@@ -71,11 +71,11 @@ const button = document.getElementById("submit");
 
 function click() {
  var check = CheckButton();
-  // button.disabled = true;
+  button.disabled = true;
 
-  // setTimeout(() => {
-  //   button.disabled = false;
-  // }, 5000);
+  setTimeout(() => {
+    button.disabled = false;
+  }, 5000);
 };
 
 
