@@ -3,9 +3,9 @@ import './App.css';
 import supabase from './supabaseClient'
 import words from './wordlistscript'
 
-// const { data, error } = await supabase
-//     .from('SucessfulGuess')
-//     .select('guess');
+ const { data, error } = await supabase
+     .from('SuccessfulGuess')
+     .select('*');
 
 function App() {
   return (
@@ -32,14 +32,14 @@ function InvalidWord (string){
 
 
   function CheckButton() {
-    // alert(data[0])
-  const guessText = document.getElementById("answer").value;
+
+  const guessText = document.getElementById("answer").value.toLowerCase();
 
   if (guessText.length !== 5) {
     alert("You must provide a word with 5 letters");
   } else {
     if(words.includes(guessText)){
-  if (true) {
+  if (data.guess.includes(guessText)) {
     console.log('Guess already exists!');
 
 
