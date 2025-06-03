@@ -3,16 +3,9 @@ import './App.css';
 import supabase from './supabaseClient'
 import words from './wordlistscript'
 
-const { data, error } = await supabase
-    .from('SucessfulGuess')
-    .select('guess');
-
-
-
-
-
-
-
+// const { data, error } = await supabase
+//     .from('SucessfulGuess')
+//     .select('guess');
 
 function App() {
   return (
@@ -39,7 +32,7 @@ function InvalidWord (string){
 
 
   function CheckButton() {
-    alert({data}[0])
+    // alert(data[0])
   const guessText = document.getElementById("answer").value;
 
   if (guessText.length !== 5) {
