@@ -8,6 +8,7 @@ import insertGuess from './insertScripts'
 
 
 
+
      function App() {
   return (
     <div className="App">
@@ -15,25 +16,15 @@ import insertGuess from './insertScripts'
     <input type='text' id='name'></input><br></br>
     <text>Please enter word</text><br></br>
     <input type='text' id='answer'></input><br></br>
-    <input type='button' id='submit' onClick={CheckButton}></input>
+    <input type='button' id='submit' onClick={click()}></input>
     </div>
 
 
   );
 }
 
-function AddWord (string){
-
-}
-
-function InvalidWord (string){
-
-}
-
-
-
-
   async function CheckButton() {
+    var correct = true;
     const { data, error } = await supabase
      .from('SuccessfulGuess')
      .select('*');
@@ -45,7 +36,9 @@ function InvalidWord (string){
 
   const guessText = document.getElementById("answer").value.toLowerCase();
   const username = document.getElementById("name").value.toLowerCase();
-
+  const button = document.getElementById("submit");
+  if (username.length == 0) {
+    alert("Please enter name");
   if (guessText.length !== 5) {
     alert("You must provide a word with 5 letters");
     } else {
@@ -55,8 +48,8 @@ function InvalidWord (string){
       if (guessList.includes(guessText)) {
         const match = data.find(row => row.guess === guessText);
         const guesserName = match?.username ?? "Unknown";
-        const guessTime = match?.created_at ?? "Unknown";
         alert("This word was already claimed by " + guesserName)
+
 
 //if word wasn't already guessed
   } else {
@@ -67,6 +60,24 @@ function InvalidWord (string){
   alert("Your guess does not exist in the current valid wordlist!")
 }
 }
+  }
+return correct;
+
+
+
 }
+
+const button = document.getElementById("submit");
+
+function click() {
+ var check = CheckButton();
+  // button.disabled = true;
+
+  // setTimeout(() => {
+  //   button.disabled = false;
+  // }, 5000);
+};
+
+
 
 export default App;
