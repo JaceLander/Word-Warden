@@ -1,8 +1,5 @@
 .App {
   text-align: center;
-  /* background-image: url('back.png');
-  background-size: contain;
-  background: ; */
 }
 
 .App-logo {
@@ -10,8 +7,13 @@
   pointer-events: none;
 }
 
+.element{
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
 .box {
-  justify-content: center;
+  text-align: center;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -53,4 +55,12 @@
   color: #61dafb;
 }
 
+
+
+.title-font {
+  font-family: "Alfa Slab One", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 5vh;
+}
 
