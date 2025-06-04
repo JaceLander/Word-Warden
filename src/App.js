@@ -3,7 +3,8 @@ import './App.css';
 import supabase from './supabaseClient'
 import words from './wordlistscript'
 import insertGuess from './insertScripts'
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+
 
 
 
@@ -12,7 +13,7 @@ import React, { useState } from 'react'
 
      function App() {
   return (
-    <div className="App">
+    <div className="App" id='general'>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
@@ -36,9 +37,16 @@ import React, { useState } from 'react'
   );
 }
 
+// let general = document.getElementById('answer');
+// general.addEventListener('keyup', (e) => {
+//   if(e.keyCode === 13){
+//     CheckButton();
+//   }else {
+//     console.error("Element with ID 'answer' not found.");
+//   }
+// })
 
 
-//const button = document.getElementById("submit");
 
 async function CheckButton() {
 
