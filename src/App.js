@@ -15,17 +15,18 @@ import React, { useState } from 'react'
     <div className="App">
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
     </style>
     <header className='title-font'>Word Warden</header>
     <input type='text' 
            className='box element' 
            placeholder='Name'
            id='name'></input><br></br>
-    <text>Enter 5 letter word</text><br></br>
+    <text className='general-font'>Enter 5 letter word</text><br></br>
     <input type='text' 
            id='answer' 
            placeholder='Word'
-           className='element'></input><br></br>
+           className='box element'></input><br></br>
     <input type='button' 
            id='submit' 
            onClick={() => CheckButton()}></input>
