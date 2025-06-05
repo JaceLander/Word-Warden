@@ -8,6 +8,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+    </style>
   </React.StrictMode>
 );
 

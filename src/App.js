@@ -14,10 +14,7 @@ import React, { useState, useRef, useEffect } from 'react'
      function App() {
   return (
     <div className="App" id='general'>
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-    </style>
+
     <header className='title-font'>Word Warden</header>
     <input type='text' 
            className='box element' 
@@ -27,7 +24,8 @@ import React, { useState, useRef, useEffect } from 'react'
     <input type='text' 
            id='answer' 
            placeholder='Word'
-           className='box element'></input><br></br>
+           className='box element answer'></input><br></br>
+           
     <input type='button' 
            id='submit' 
            className='button'
