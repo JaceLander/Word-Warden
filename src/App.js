@@ -30,21 +30,14 @@ import React, { useState, useRef, useEffect } from 'react'
            className='box element'></input><br></br>
     <input type='button' 
            id='submit' 
-           onClick={() => CheckButton()}></input>
+           className='button'
+           onClick={() => CheckButton()}
+           ></input>
     </div>
 
 
   );
 }
-
-// let general = document.getElementById('answer');
-// general.addEventListener('keyup', (e) => {
-//   if(e.keyCode === 13){
-//     CheckButton();
-//   }else {
-//     console.error("Element with ID 'answer' not found.");
-//   }
-// })
 
 
 
