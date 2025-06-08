@@ -25,6 +25,10 @@
   justify-self: center;
 }
 
+.response{
+  height: 10px;
+  visibility: hidden;
+}
 
 
 .title-font {

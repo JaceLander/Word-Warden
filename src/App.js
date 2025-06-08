@@ -4,6 +4,7 @@ import supabase from './supabaseClient'
 import words from './wordlistscript'
 import insertGuess from './insertScripts'
 import React, { useState, useRef, useEffect } from 'react'
+import StaticExample from './modalscripts';
 
 
 
@@ -25,7 +26,10 @@ import React, { useState, useRef, useEffect } from 'react'
            id='answer' 
            placeholder='Word'
            className='box element answer'></input><br></br>
-           
+    <input type='text' 
+           id='response' 
+           placeholder='word'
+           className='box response'></input><br></br>
     <input type='button' 
            id='submit' 
            className='button'
@@ -37,6 +41,7 @@ import React, { useState, useRef, useEffect } from 'react'
   );
 }
 
+const response = document.getElementById("response");
 
 
 async function CheckButton() {
@@ -47,10 +52,9 @@ async function CheckButton() {
 
    const guessList = data.map(row => row.guess);
 
-
-
 const guessText = document.getElementById("answer").value.toLowerCase();
 const username = document.getElementById("name").value.toLowerCase();
+
 if (username.length === 0) {
   alert("Please enter name");
   return;
@@ -64,9 +68,12 @@ if (username.length === 0) {
       if(words.includes(guessText.toLowerCase())){
       //checks if word has been already guessed
       if (guessList.includes(guessText.toLowerCase())) {
-        const match = data.find(row => row.guess === guessText);
-        const guesserName = match?.username ?? "Unknown";
-        alert("This word was already claimed by " + guesserName)
+        //if guess already existed
+          const match = data.find(row => row.guess === guessText);
+          const guesserName = match?.username ?? "Unknown";
+          response.style.visibility = 'visible';
+          response.value = 'This word was already claimed by ' + guesserName;
+
         return;
 
       //if word wasn't already guessed
