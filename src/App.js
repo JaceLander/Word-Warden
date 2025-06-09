@@ -5,42 +5,17 @@ import words from './wordlistscript'
 import {insertGuess, alertToUser} from './insertScripts'
 import React, { useState, useRef, useEffect } from 'react'
 import StaticExample from './modalscripts';
+ 
 
 
 
+export default App;
 
 
 
-
-     function App() {
-  return (
-    <div className="App" id='general'>
-
-    <header className='title-font text'>Word Warden</header>
-    <input type='text' 
-           className='box element general-font' 
-           placeholder='Name'
-           id='name'></input><br></br>
-    <text className='general-font text'>Enter 5 letter word</text><br></br>
-    <input type='text' 
-           id='answer' 
-           placeholder='Word'
-           className='box element answer general-font'></input><br></br>
-    <input type='text' 
-           id='response' 
-           placeholder='word'
-           className='box response general-font' readOnly></input><br></br>
-    <input type='button' 
-           id='submit' 
-           className='button'
-           onClick={() => CheckButton()}
-           ></input>
-    </div>
-
-
-  );
-}
-
+function App() {
+  const [message, setMessage] = useState('');
+  const [isError, setIsError] = useState(false);
 
 async function CheckButton() {
 
@@ -84,4 +59,34 @@ if (username.length === 0) {
     }
 
 
-export default App;
+
+
+  return (
+    <div className="App" id='general'>
+
+      <header className='title-font text'>Word Warden</header>
+      <input type='text' 
+            className='box element general-font' 
+            placeholder='Name'
+            id='name'></input><br></br>
+      <text className='general-font text'>Enter 5 letter word</text><br></br>
+      <input type='text' 
+            id='answer' 
+            placeholder='Word'
+            className='box element answer general-font'></input><br></br>
+      <input type='text' 
+            id='response' 
+            placeholder='word'
+            className='box response general-font' readOnly></input><br></br>
+      <input type='button' 
+            id='submit' 
+            className='button'
+            onClick={() => CheckButton()}
+            ></input>
+    </div>
+
+
+  );
+}
+
+
