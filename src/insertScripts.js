@@ -12,11 +12,11 @@ import supabase from './supabaseClient'
   document.getElementById("response").style.visibility = 'visible';
 }
 
-async function insertGuess(guess, name)
+async function insertGuess(guess, namƒe)
 {
 const { error } = await supabase
 .from('SuccessfulGuess')
-.insert({guess: guess, created_at: Date.now().valueOf, username: name})
+.insert({guess: guess, created_at: Date.now().valueOf})
 alertToUser('Congratulations! You have claimed a new word!', false);
 
 
