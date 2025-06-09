@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import supabase from './supabaseClient'
 import words from './wordlistscript'
-import insertGuess from './insertScripts'
+import {insertGuess, alertToUser} from './insertScripts'
 import React, { useState, useRef, useEffect } from 'react'
 import StaticExample from './modalscripts';
 
@@ -18,18 +18,18 @@ import StaticExample from './modalscripts';
 
     <header className='title-font'>Word Warden</header>
     <input type='text' 
-           className='box element' 
+           className='box element general-font' 
            placeholder='Name'
            id='name'></input><br></br>
     <text className='general-font'>Enter 5 letter word</text><br></br>
     <input type='text' 
            id='answer' 
            placeholder='Word'
-           className='box element answer'></input><br></br>
+           className='box element answer general-font'></input><br></br>
     <input type='text' 
            id='response' 
            placeholder='word'
-           className='box response'></input><br></br>
+           className='box response general-font'></input><br></br>
     <input type='button' 
            id='submit' 
            className='button'
@@ -40,8 +40,6 @@ import StaticExample from './modalscripts';
 
   );
 }
-
-const response = document.getElementById("response");
 
 
 async function CheckButton() {
@@ -56,11 +54,11 @@ const guessText = document.getElementById("answer").value.toLowerCase();
 const username = document.getElementById("name").value.toLowerCase();
 
 if (username.length === 0) {
-  alert("Please enter name");
+  alertToUser('Please Enter a username', true);
   return;
   }
   if (guessText.length !== 5) {
-    alert("You must provide a word with 5 letters");
+    alertToUser('You must provide a word with 5 letters', true);
     return;
     } 
     else {
@@ -71,9 +69,7 @@ if (username.length === 0) {
         //if guess already existed
           const match = data.find(row => row.guess === guessText);
           const guesserName = match?.username ?? "Unknown";
-          response.style.visibility = 'visible';
-          response.value = 'This word was already claimed by ' + guesserName;
-
+          alertToUser('This word was already claimed by ' + guesserName, false);
         return;
 
       //if word wasn't already guessed
@@ -82,7 +78,7 @@ if (username.length === 0) {
         }
         //if word isnt real
         }else{
-        alert("Your guess does not exist in the current valid wordlist!")
+          alertToUser('This word does not exist!', true);
         }
       }
     }

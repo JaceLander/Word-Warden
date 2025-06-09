@@ -20,14 +20,19 @@
 .box {
   text-align: center;
 }
-
 .label {
   justify-self: center;
 }
 
 .response{
-  height: 10px;
+  border-width: 0;
+  background-color: #ffe4c4;
+  width: 400px;
   visibility: hidden;
+  margin-bottom: 0vh;
+  margin-top: 0vh;
+  height: '20px';
+
 }
 
 
