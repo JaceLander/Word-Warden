@@ -55,7 +55,7 @@ const guessText = document.getElementById("answer").value.toLowerCase();
 const username = document.getElementById("name").value.toLowerCase();
 
 if (username.length === 0) {
-  setMessage('Please Enter a username');
+  setMessage('Please enter a username');
   setIsError(true);
   alertingUser();
   return;
@@ -109,7 +109,7 @@ if (username.length === 0) {
           <div className={`response 
             general-font 
             ${isError ? 'error' : ''}
-            ${isVisible ? 'visible' : 'hidden'}`}>
+            ${isVisible ? 'visible' : ''}`}>
             {message}</div>
       <br></br>
       <input type='button' 
