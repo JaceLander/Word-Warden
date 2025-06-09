@@ -42,7 +42,7 @@ function App() {
   {
   const { error } = await supabase
   .from('TimeOutCorner')
-  .insert({username: name, created_at: Date.now().valueOf, reinstatement: (Date.now()).valueOf + 600000})
+  .insert({username: name, created_at: Date.now().valueOf, reinstatement: Date.now().valueOf})
   if (error) {
       console.log(error.message);
     }
