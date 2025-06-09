@@ -16,12 +16,12 @@ import StaticExample from './modalscripts';
   return (
     <div className="App" id='general'>
 
-    <header className='title-font'>Word Warden</header>
+    <header className='title-font text'>Word Warden</header>
     <input type='text' 
            className='box element general-font' 
            placeholder='Name'
            id='name'></input><br></br>
-    <text className='general-font'>Enter 5 letter word</text><br></br>
+    <text className='general-font text'>Enter 5 letter word</text><br></br>
     <input type='text' 
            id='answer' 
            placeholder='Word'
@@ -29,7 +29,7 @@ import StaticExample from './modalscripts';
     <input type='text' 
            id='response' 
            placeholder='word'
-           className='box response general-font'></input><br></br>
+           className='box response general-font' readOnly></input><br></br>
     <input type='button' 
            id='submit' 
            className='button'
