@@ -5,7 +5,8 @@ import words from './wordlistscript'
 import React, { useState, useRef, useEffect } from 'react'
 import StaticExample from './modalscripts';
 import { time } from 'framer-motion';
- 
+import { Shake} from 'reshake'
+
 
 
 
@@ -19,6 +20,7 @@ function App() {
   const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [shake, setShake] = useState(false);
 
   async function alertingUser(){
     setIsVisible(true);
@@ -31,17 +33,20 @@ function App() {
   const { error } = await supabase
   .from('SuccessfulGuess')
   .insert({guess: guess, created_at: Date.now().valueOf, username: name})
-  setMessage('Congratulations! This is a new word!');
-  setIsError(false);
-  setIsVisible(true);
-  
-  
   if (error) {
       console.log('Insert error:', error.message);
     }
   }
 
-
+  async function insertTimeout(name)
+  {
+  const { error } = await supabase
+  .from('TimeOutCorner')
+  .insert({username: name, created_at: Date.now().valueOf, reinstatement: (Date.now()).valueOf + 600000})
+  if (error) {
+      console.log(error.message);
+    }
+  }
 
 async function CheckButton() {
 
@@ -71,17 +76,25 @@ if (username.length === 0) {
       if(words.includes(guessText.toLowerCase())){
       //checks if word has been already guessed
       if (guessList.includes(guessText.toLowerCase())) {
+
         //if guess already existed
           const match = data.find(row => row.guess === guessText);
           const guesserName = match?.username ?? "Unknown";
           setMessage('This word was already guessed by ' + guesserName);
+          insertTimeout(guesserName)
           setIsError(true);
           alertingUser();
+          setShake(true);
+          await sleep(750);
+          setShake(false);
         return;
 
       //if word wasn't already guessed
           } else {
             insertGuess(guessText, username);
+            setMessage("Congratulations! This is a new word!")
+            setIsError(false);
+            alertingUser();
         }
         //if word isnt real
         }else{
@@ -91,7 +104,13 @@ if (username.length === 0) {
         }
       }
     }
+
+
+
+
   return (
+
+    <Shake active={shake} intensity={5}>
     <div className="App" id='general'>
 
       <header className='title-font text'>Word Warden</header>
@@ -120,6 +139,8 @@ if (username.length === 0) {
             onClick={() => CheckButton()}
             ></input>
     </div>
+</Shake>
+
 
 
   );

@@ -58,6 +58,9 @@
   height: 0px;
   }
 
+.wrong{
+  box-shadow: inset 10px 10px 10px 10px red;
+}
 
 .response.visible{
     opacity: 1;
