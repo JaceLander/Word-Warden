@@ -29,7 +29,7 @@
   color:#8f1919;
 }
 
-.response{
+/* .response{
   border-width: 0;
   background-color: #ffe4c4;
   width: 400px;
@@ -39,7 +39,7 @@
   height: '20px';
   outline: none;
   cursor: default;
-}
+} */
 
 
 .title-font {
@@ -61,6 +61,14 @@
 
 .hidden{
   visibility: hidden;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.visible{
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  height:2vh;
 }
 
 .button {
@@ -83,6 +91,12 @@
 transition-duration: .25s;
 cursor: pointer;
 
+}
+
+.response{
+height: 0vh;
+margin-top: 0vh;
+margin-bottom: 0vh;
 }
 
 .button-waiting{

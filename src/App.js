@@ -11,19 +11,19 @@ import { time } from 'framer-motion';
 
 export default App;
 
-function timeout(delay) {
-  return new Promise( res => setTimeout(res, delay) );
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
-
 
 function App() {
   const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  function alertingUser(){
+  async function alertingUser(){
     setIsVisible(true);
-    timeout(100)
+    await sleep(2500);
+    setIsVisible(false);
   }
 
   async function insertGuess(guess, name)
@@ -57,13 +57,13 @@ const username = document.getElementById("name").value.toLowerCase();
 if (username.length === 0) {
   setMessage('Please Enter a username');
   setIsError(true);
-  setIsVisible(true);
+  alertingUser();
   return;
   }
   if (guessText.length !== 5) {
     setMessage('Please enter a word that is 5 letters long!');
     setIsError(true);
-    setIsVisible(true);
+    alertingUser();
     return;
     } 
     else {
@@ -76,7 +76,7 @@ if (username.length === 0) {
           const guesserName = match?.username ?? "Unknown";
           setMessage('This word was already guessed by ' + guesserName);
           setIsError(true);
-          setIsVisible(true);
+          alertingUser();
         return;
 
       //if word wasn't already guessed
@@ -87,7 +87,7 @@ if (username.length === 0) {
         }else{
           setMessage('This word does not exist in the current wordlist!');
           setIsError(true);
-          setIsVisible(true);
+          alertingUser();
         }
       }
     }
@@ -103,11 +103,13 @@ if (username.length === 0) {
       <input type='text' 
             id='answer' 
             placeholder='Word'
+            style={{ marginBottom: '0vh' }}
             className='box element answer general-font'></input><br></br>
             
-          <div className={`general-font 
+          <div className={`response 
+            general-font 
             ${isError ? 'error' : ''}
-            ${isVisible ? '' : 'hidden'}`}>
+            ${isVisible ? 'visible' : 'hidden'}`}>
             {message}</div>
       <br></br>
       <input type='button' 
