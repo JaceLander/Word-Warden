@@ -1,10 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import supabase from './supabaseClient'
 import words from './wordlistscript'
 import React, { useState, useRef, useEffect } from 'react'
-import StaticExample from './modalscripts';
-import { time } from 'framer-motion';
 import { Shake} from 'reshake'
 
 
@@ -56,7 +53,7 @@ function App() {
           dateHours = date.getHours() % 12 || 12;
           const ampm = dateHours >= 12 ? "AM" : "PM";
       setMessage(`This user is timed out until ${dateHours}:${minutes} ${ampm}`);
-      setIsVisible(true);
+      setIsVisible(true); 
       legal = false
     }else{
     setIsVisible(true);
@@ -153,6 +150,7 @@ if(legal){
           }
         }
       }
+      alertingUser();
     }
 
 
