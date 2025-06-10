@@ -10,11 +10,10 @@ import { Shake} from 'reshake'
 
 
 
+
 export default App;
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+
 
 function App() {
   const [message, setMessage] = useState('');
@@ -22,7 +21,54 @@ function App() {
   const [isVisible, setIsVisible] = useState(false);
   const [shake, setShake] = useState(false);
 
+  async function temp(){
+  const { data: timeoutData, error } = await supabase
+  .from('TimeOutCorner')
+  .select('*');
+  
+  const bannedUsers = timeoutData.map(row => row.username);
+
+  return {bannedUsers, timeoutData}
+  }
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
+  async function detectUser(name){
+  var legal = true;
+  const {bannedUsers, timeoutData} = await temp();
+
+    if(bannedUsers.includes(name)){
+      const match = timeoutData.find(row => row.username === name);
+      const dateStr = match?.created_at ?? "Unknown";
+      const date = new Date(dateStr);
+      var dateHours = date.getHours();
+      // if(Date.now() < date.getTime())
+      // {
+      //   const { data, error } = await supabase
+      //   .from('TimeOutCorner')
+      //   .delete()
+      //   .eq('username', name);
+      // }
+
+
+      if(date.getHours() >= 12)
+      {
+        dateHours = date.getHours() - 12;
+      }
+      setMessage('This user is timed out until ' + dateHours + ":" + date.getMinutes());
+      setIsVisible(true);
+      legal = false
+    }else{
+    setIsVisible(true);
+    legal = true
+    }
+    return legal;
+  }
+
   async function alertingUser(){
+    
     setIsVisible(true);
     await sleep(2500);
     setIsVisible(false);
@@ -42,7 +88,7 @@ function App() {
   {
   const { error } = await supabase
   .from('TimeOutCorner')
-  .insert({username: name, created_at: Date.now().valueOf, reinstatement: Date.now().valueOf})
+  .insert({username: name})
   if (error) {
       console.log(error.message);
     }
@@ -55,56 +101,61 @@ async function CheckButton() {
    .select('*');
 
    const guessList = data.map(row => row.guess);
-
 const guessText = document.getElementById("answer").value.toLowerCase();
 const username = document.getElementById("name").value.toLowerCase();
 
-if (username.length === 0) {
-  setMessage('Please enter a username');
-  setIsError(true);
-  alertingUser();
-  return;
-  }
-  if (guessText.length !== 5) {
-    setMessage('Please enter a word that is 5 letters long!');
+const legal = await detectUser(username);
+
+if(legal){
+
+
+  if (username.length === 0) {
+
+    setMessage('Please enter a username');
     setIsError(true);
     alertingUser();
     return;
-    } 
-    else {
-      //checks if word is valid
-      if(words.includes(guessText.toLowerCase())){
-      //checks if word has been already guessed
-      if (guessList.includes(guessText.toLowerCase())) {
+    }
+    if (guessText.length !== 5) {
+      setMessage('Please enter a word that is 5 letters long!');
+      setIsError(true);
+      alertingUser();
+      return;
+      } 
+      else {
+        //checks if word is valid
+        if(words.includes(guessText.toLowerCase())){
+        //checks if word has been already guessed
+        if (guessList.includes(guessText.toLowerCase())) {
 
-        //if guess already existed
-          const match = data.find(row => row.guess === guessText);
-          const guesserName = match?.username ?? "Unknown";
-          setMessage('This word was already guessed by ' + guesserName);
-          insertTimeout(guesserName)
-          setIsError(true);
-          alertingUser();
-          setShake(true);
-          await sleep(750);
-          setShake(false);
-        return;
-
-      //if word wasn't already guessed
-          } else {
-            insertGuess(guessText, username);
-            setMessage("Congratulations! This is a new word!")
-            setIsError(false);
+          //if guess already existed
+            const match = data.find(row => row.guess === guessText);
+            const guesserName = match?.username ?? "Unknown";
+            setMessage('This word was already guessed by ' + guesserName + ". You've been timed out for 1 hour.");
+            insertTimeout(guesserName)
+            setIsError(true);
             alertingUser();
-        }
-        //if word isnt real
-        }else{
-          setMessage('This word does not exist in the current wordlist!');
-          setIsError(true);
-          alertingUser();
+            setShake(true);
+            await sleep(750);
+            setShake(false);
+          return;
+
+        //if word wasn't already guessed
+            } else {
+              insertGuess(guessText, username);
+              setMessage("Congratulations! This is a new word!")
+              setIsError(false);
+              alertingUser();
+          }
+          //if word isnt real
+          }else{
+            setMessage('This word does not exist in the current wordlist!');
+            setIsError(true);
+            alertingUser();
+          }
         }
       }
     }
-
 
 
 
