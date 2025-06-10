@@ -39,25 +39,23 @@ function App() {
   var legal = true;
   const {bannedUsers, timeoutData} = await temp();
 
+
     if(bannedUsers.includes(name)){
       const match = timeoutData.find(row => row.username === name);
-      const dateStr = match?.created_at ?? "Unknown";
+      const dateStr = match?.account_allowed ?? "Unknown";
       const date = new Date(dateStr);
-      var dateHours = date.getHours();
-      // if(Date.now() < date.getTime())
-      // {
-      //   const { data, error } = await supabase
-      //   .from('TimeOutCorner')
-      //   .delete()
-      //   .eq('username', name);
-      // }
-
-
-      if(date.getHours() >= 12)
-      {
-        dateHours = date.getHours() - 12;
-      }
-      setMessage('This user is timed out until ' + dateHours + ":" + date.getMinutes());
+          if(Date.now() > date.getTime())
+          {
+            const { data, error } = await supabase
+            .from('TimeOutCorner')
+            .delete()
+            .eq('username', name);
+          }
+          var dateHours = date.getHours();
+          const minutes = String(date.getMinutes()).padStart(2, "0");
+          dateHours = date.getHours() % 12 || 12;
+          const ampm = dateHours >= 12 ? "AM" : "PM";
+      setMessage(`This user is timed out until ${dateHours}:${minutes} ${ampm}`);
       setIsVisible(true);
       legal = false
     }else{
@@ -132,7 +130,7 @@ if(legal){
             const match = data.find(row => row.guess === guessText);
             const guesserName = match?.username ?? "Unknown";
             setMessage('This word was already guessed by ' + guesserName + ". You've been timed out for 1 hour.");
-            insertTimeout(guesserName)
+            insertTimeout(username)
             setIsError(true);
             alertingUser();
             setShake(true);
