@@ -3,7 +3,7 @@ import supabase from './supabaseClient'
 import words from './wordlistscript'
 import React, { useState } from 'react'
 import { Shake} from 'reshake'
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 
 
@@ -167,8 +167,7 @@ if(legal){
 
 
   return (
-
-<BrowserRouter basename="/newtry">
+<HashRouter>
     <Shake active={shake} intensity={5}>
     <div className="App" id='general'>
 
@@ -199,7 +198,7 @@ if(legal){
             ></input>
     </div>
 </Shake>
-</BrowserRouter>
+</HashRouter>
 
   );
 }
