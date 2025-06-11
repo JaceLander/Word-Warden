@@ -47,10 +47,14 @@ function App() {
       const date = new Date(dateStr);
           if(Date.now() > date.getTime())
           {
-            const {} = await supabase
+            const {error} = await supabase
             .from('TimeOutCorner')
             .delete()
             .eq('username', name);
+            if(error){
+              console.log(error.message);
+              return legal = false;
+            }
             return legal = true;
           }
           var dateHours = date.getHours();
