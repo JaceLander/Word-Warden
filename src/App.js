@@ -5,9 +5,13 @@ import React, { useState } from 'react'
 import { Shake} from 'reshake'
 import { HashRouter } from 'react-router-dom'
 
+const { data } = await supabase
+.from('SuccessfulGuess')
+.select('*');
 
+const claimedWords = data.map(row => row.guess);
 
-
+var counter = 0;
 
 export default App;
 
@@ -137,6 +141,7 @@ if(legal){
             const match = data.find(row => row.guess === guessText);
             const guesserName = match?.username ?? "Unknown";
             setMessage('This word was already guessed by ' + guesserName + ". You've been timed out for 1 hour.");
+            counter = 0;
             insertTimeout(username)
             setIsError(true);
             alertingUser();
@@ -148,7 +153,13 @@ if(legal){
         //if word wasn't already guessed
             } else {
               insertGuess(guessText, username);
+              counter++;
+              if(counter === 1){
+                setMessage("Congratulations! This is a new word! You are on a " + counter + " word streak!")
+              }
+              else{
               setMessage("Congratulations! This is a new word!")
+              }
               setIsError(false);
               alertingUser();
           }
@@ -187,7 +198,9 @@ if(legal){
             ${isError ? 'error' : ''}
             ${isVisible ? 'visible' : ''}`}>
             {message}</div>
+            
       <br></br>
+      <text className='general-font text'>Remaining: {claimedWords.length} out of {words.length} words</text><br></br><br></br>
       <input type='button' 
             id='submit' 
             className={`button
@@ -195,6 +208,7 @@ if(legal){
 
             onClick={() => CheckButton()}
             ></input>
+            
     </div>
 </Shake>
 </HashRouter>

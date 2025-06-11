@@ -7,6 +7,9 @@
   text-align: center;
 }
 
+.top-element{
+padding-top: 50vh;
+}
 
 .element{
   margin-top: 2vh;
