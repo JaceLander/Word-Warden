@@ -2,7 +2,7 @@
   "name": "newtry",
   "version": "0.1.0",
   "private": true,
-  "homepage": "newtry",
+  "homepage": "/newtry",
   "dependencies": {
     "@supabase/supabase-js": "^2.49.9",
     "@testing-library/dom": "^10.4.0",
