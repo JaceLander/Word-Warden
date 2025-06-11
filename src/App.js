@@ -1,7 +1,7 @@
 import './App.css';
 import supabase from './supabaseClient'
 import words from './wordlistscript'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Shake} from 'reshake'
 
 
@@ -22,6 +22,10 @@ function App() {
   const { data: timeoutData, error } = await supabase
   .from('TimeOutCorner')
   .select('*');
+  if(error){
+    console.log("error: " + error.message);
+    return;
+  }
   
   const bannedUsers = timeoutData.map(row => row.username);
 
@@ -43,10 +47,11 @@ function App() {
       const date = new Date(dateStr);
           if(Date.now() > date.getTime())
           {
-            const { data, error } = await supabase
+            const {} = await supabase
             .from('TimeOutCorner')
             .delete()
             .eq('username', name);
+            return legal = true;
           }
           var dateHours = date.getHours();
           const minutes = String(date.getMinutes()).padStart(2, "0");
