@@ -165,7 +165,7 @@ if(legal){
 
 
   return (
-
+<BrowserRouter basename="/newtry">
     <Shake active={shake} intensity={5}>
     <div className="App" id='general'>
 
@@ -196,7 +196,7 @@ if(legal){
             ></input>
     </div>
 </Shake>
-
+</BrowserRouter>
 
 
   );
