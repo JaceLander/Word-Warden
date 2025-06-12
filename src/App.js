@@ -248,7 +248,6 @@ if(legal){
             id='submit' 
             className={`button
             ${isVisible ? 'button-waiting' : ''}`}
-
             onClick={() => CheckButton()}
             ></input><br></br><br></br><br></br>
 
