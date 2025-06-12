@@ -199,6 +199,7 @@ if(legal){
               setMessage("Congratulations! This is a new word! You have guessed " + guessesCount + " words");
               setIsError(false);
               alertingUser();
+              document.getElementById("answer").value = '';
           }
           //if word isnt real
           }else{
