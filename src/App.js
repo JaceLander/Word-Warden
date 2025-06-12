@@ -12,7 +12,6 @@ import { HashRouter } from 'react-router-dom'
 
 // const top5players = await getPlayers();
 
-var counter = 0;
 
 
 
@@ -184,7 +183,6 @@ if(legal){
             const match = data.find(row => row.guess === guessText);
             const guesserName = match?.username ?? "Unknown";
             setMessage('This word was already guessed by ' + guesserName + ". You've been timed out for 1 hour.");
-            counter = 0;
             insertTimeout(username)
             setIsError(true);
             alertingUser();
@@ -196,14 +194,9 @@ if(legal){
         //if word wasn't already guessed
             } else {
               insertGuess(guessText, username);
-              counter++;
-              if(counter === 1){
-                setMessage("Congratulations! This is a new word!")
-              }
-              else{
-
-              setMessage("Congratulations! This is a new word! You are on a " + counter + " word streak!");
-              }
+              //const match = data.find(row => row.user === username);
+              const guessesCount = data.filter(row => row.username === username).length;
+              setMessage("Congratulations! This is a new word! You have guessed " + guessesCount + " words");
               setIsError(false);
               alertingUser();
           }
