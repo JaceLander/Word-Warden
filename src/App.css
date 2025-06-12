@@ -7,9 +7,6 @@
   text-align: center;
 }
 
-.top-element{
-padding-top: 50vh;
-}
 
 .element{
   margin-top: 2vh;
@@ -36,7 +33,7 @@ padding-top: 50vh;
 
 
 .title-font {
-  margin-top: 20vh;
+  margin-top: 10vh;
   font-family: "Alfa Slab One", serif;
   font-weight: 400;
   font-style: normal;
@@ -106,6 +103,7 @@ cursor: pointer;
   border-width: 0;
   box-shadow: 0px 0px 0px 1px rgb(196, 33, 33), 0px 1px 0px 5px rgb(0, 0, 0);
     margin-top: 9px; 
+    margin-bottom: -9px;
   }
 
 .text{

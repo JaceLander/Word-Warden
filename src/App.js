@@ -253,7 +253,7 @@ if(legal){
             ></input><br></br><br></br><br></br>
 
       <text className='general-font text'>{top5players && top5players.length > 0 ? (
-      <div>Top Player: {top5players[0].username} </div>
+      <div>Top Player: {top5players[0].username} with {top5players[0].guessCount} words!</div>
       ) : (
       <div>Loading leaderboard...</div>
       )}</text> <br></br>
@@ -262,7 +262,7 @@ if(legal){
       ) : (
       <div>Loading leaderboard...</div>
       )}</text>
-      <text className='general-font text'>{top5players && top5players.length > 0 ? (
+      <text className='general-font text leaderboard'>{top5players && top5players.length > 0 ? (
       <div>3rd: {top5players[2].username} </div>
       ) : (
       <div>Loading leaderboard...</div>
