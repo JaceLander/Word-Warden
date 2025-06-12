@@ -198,10 +198,11 @@ if(legal){
               insertGuess(guessText, username);
               counter++;
               if(counter === 1){
-                setMessage("Congratulations! This is a new word! You are on a " + counter + " word streak!")
+                setMessage("Congratulations! This is a new word!")
               }
               else{
-              setMessage("Congratulations! This is a new word!")
+
+              setMessage("Congratulations! This is a new word! You are on a " + counter + " word streak!");
               }
               setIsError(false);
               alertingUser();
@@ -225,6 +226,7 @@ if(legal){
     <div className="App" id='general'>
 
       <header className='title-font text'>Word Warden</header>
+      <text className='general-font text'>Guess as many words as you can, but if you guess a word someone already guessed you are timed out!</text><br></br>
       <input type='text' 
             className='box element general-font' 
             placeholder='Name'
