@@ -196,7 +196,7 @@ if(legal){
               insertGuess(guessText, username);
               //const match = data.find(row => row.user === username);
               const guessesCount = data.filter(row => row.username === username).length;
-              setMessage("Congratulations! This is a new word! You have guessed " + guessesCount + " words");
+              setMessage("Congratulations! This is a new word! You have guessed " + (guessesCount + 1) + " words");
               setIsError(false);
               alertingUser();
               document.getElementById("answer").value = '';
