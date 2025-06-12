@@ -1,17 +1,23 @@
 import './App.css';
 import supabase from './supabaseClient'
 import words from './wordlistscript'
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import { Shake} from 'reshake'
-import { HashRouter } from 'react-router-dom'
+import { Await, HashRouter } from 'react-router-dom'
 
-const { data } = await supabase
-.from('SuccessfulGuess')
-.select('*');
 
-const claimedWords = data.map(row => row.guess);
+
+
+
+
+// const top5players = await getPlayers();
 
 var counter = 0;
+
+
+
+
+
 
 export default App;
 
@@ -22,6 +28,43 @@ function App() {
   const [isError, setIsError] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [shake, setShake] = useState(false);
+  const [claimedWords, setClaimedWords] = useState([]);
+  const [top5players, setTop5Players] = useState([]);
+
+
+
+  useEffect(() => {
+    async function fetchClaimedWords() {
+      const words = await getClaimedWords();
+      setClaimedWords(words);
+    }
+    fetchClaimedWords();
+  }, []);
+
+  useEffect(() => {
+    async function fetchPlayers() {
+      const players = await getPlayers();
+      setTop5Players(players);
+    }
+    fetchPlayers();
+  }, []);
+
+  async function getPlayers(){
+    const { data, error } = await supabase.rpc('top_guessers');
+  
+    const top5players = data.map(row => ({
+      username: row.username,
+      guessCount: row.guess_count
+    }));
+  return top5players;
+  }
+
+  async function getClaimedWords(){
+    const { data } = await supabase
+    .from('SuccessfulGuess')
+    .select('*');
+    return data.map(row => row.guess);
+    }
 
   async function temp(){
   const { data: timeoutData, error } = await supabase
@@ -207,7 +250,26 @@ if(legal){
             ${isVisible ? 'button-waiting' : ''}`}
 
             onClick={() => CheckButton()}
-            ></input>
+            ></input><br></br><br></br><br></br>
+
+      <text className='general-font text'>{top5players && top5players.length > 0 ? (
+      <div>Top Player: {top5players[0].username} </div>
+      ) : (
+      <div>Loading leaderboard...</div>
+      )}</text> <br></br>
+      <text className='general-font text'>{top5players && top5players.length > 0 ? (
+      <div>2nd: {top5players[1].username} </div>
+      ) : (
+      <div>Loading leaderboard...</div>
+      )}</text>
+      <text className='general-font text'>{top5players && top5players.length > 0 ? (
+      <div>3rd: {top5players[2].username} </div>
+      ) : (
+      <div>Loading leaderboard...</div>
+      )}</text>
+
+
+
             
     </div>
 </Shake>
