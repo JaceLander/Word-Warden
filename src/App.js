@@ -3,7 +3,7 @@ import supabase from './supabaseClient'
 import words from './wordlistscript'
 import React, { useState, useEffect} from 'react'
 import { Shake} from 'reshake'
-import { Await, HashRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 
 
@@ -50,7 +50,7 @@ function App() {
   }, []);
 
   async function getPlayers(){
-    const { data, error } = await supabase.rpc('top_guessers');
+    const { data } = await supabase.rpc('top_guessers');
   
     const top5players = data.map(row => ({
       username: row.username,
