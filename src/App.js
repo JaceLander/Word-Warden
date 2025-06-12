@@ -243,7 +243,7 @@ if(legal){
             {message}</div>
             
       <br></br>
-      <text className='general-font text'>Remaining: {claimedWords.length} out of {words.length} words</text><br></br><br></br>
+      <text className='general-font text'>Claimed: {claimedWords.length} out of {words.length} words</text><br></br><br></br>
       <input type='button' 
             id='submit' 
             className={`button
